@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.futureshop.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.futureshop.pojo.User" >
+        <constructor >
+            <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="question" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="answer" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="role" jdbcType="INTEGER" javaType="java.lang.Integer" />
+            <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+            <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+        </constructor>
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, username, password, email, phone, question, answer, role, create_time, update_time
+    </sql>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+      SELECT
+      <include refid="BaseColumnList" />
+      from future_shop_user WHERE id=#{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="BaseColumnList" />
+        from future_shop_user
+    </select>
+
+    <insert id="insertSelective" parameterType="com.futureshop.pojo.User">
+      insert into future_shop_user
+       <trim prefix="(" suffix=")" suffixOverrides="," >
+           <if test="id != null">
+               id,
+           </if>
+           <if test="username != null">
+               username,
+           </if>
+           <if test="password != null">
+               password,
+           </if>
+           <if test="email != null">
+               email,
+           </if>
+           <if test="phone != null">
+               phone,
+           </if>
+           <if test="question != null">
+               question,
+           </if>
+           <if test="answer != null">
+               answer,
+           </if>
+           <if test="role != null">
+               role,
+           </if>
+           <if test="create_time != null">
+               create_time,
+           </if>
+           <if test="update_time != null">
+               update_time,
+           </if>
+       </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides="," >
+            <if test="id != null">
+                #{id, jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username, jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password, jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email, jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone, jdbcType=VARCHAR},
+            </if>
+            <if test="question != null">
+                #{question, jdbcType=VARCHAR},
+            </if>
+            <if test="answer != null">
+                #{answer, jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                #{role, jdbcType=INTEGER},
+            </if>
+            <if test="create_time != null">
+                #{create_time, jdbcType=TIMESTAMP},
+            </if>
+            <if test="update_time != null">
+                #{update_time, jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+
+    <insert id="insert" parameterType="com.futureshop.pojo.User">
+        insert into future_shop_user(id, username, password, email, phone, question, answer, role, create_time, update_time)
+        VALUES (#{id, jdbcType=VARCHAR}, #{username, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR}, #{email, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR}, #{question, jdbcType=VARCHAR}, #{answer, jdbcType=VARCHAR}, #{role, jdbcType=INTEGER}, #{create_time, jdbcType=TIMESTAMP}, #{update_time, jdbcType=TIMESTAMP})
+    </insert>
+
+    <select id="selectByUsername" parameterType="java.lang.String" resultType="int">
+      SELECT count(1) from future_shop_user where username = #{username, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByEmail" parameterType="java.lang.String" resultType="int">
+      SELECT count(1) from future_shop_user where email = #{email, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByUsernameAndPassword" parameterType="map" resultMap="BaseResultMap">
+      SELECT
+      <include refid="BaseColumnList" />
+      from
+      future_shop_user
+      WHERE username = #{username, jdbcType=VARCHAR} and password = #{password, jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.futureshop.pojo.User" >
+      UPDATE future_shop_user
+      <set >
+          <if test="username != null" >
+              username = #{username,jdbcType=VARCHAR},
+          </if>
+          <if test="password != null" >
+              password = #{password,jdbcType=VARCHAR},
+          </if>
+          <if test="email != null" >
+              email = #{email,jdbcType=VARCHAR},
+          </if>
+          <if test="phone != null" >
+              phone = #{phone,jdbcType=VARCHAR},
+          </if>
+          <if test="question != null" >
+              question = #{question,jdbcType=VARCHAR},
+          </if>
+          <if test="answer != null" >
+              answer = #{answer,jdbcType=VARCHAR},
+          </if>
+          <if test="role != null" >
+              role = #{role,jdbcType=INTEGER},
+          </if>
+          <if test="create_time != null" >
+              create_time = #{create_time,jdbcType=TIMESTAMP},
+          </if>
+          <if test="update_time != null" >
+              update_time = now(),
+          </if>
+      </set>
+      where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectCountByUsernameAndPassword" parameterType="map" resultType="int">
+      SELECT count(1) FROM future_shop_user
+      WHERE username = #{username, jdbcType=VARCHAR} and password = #{password, jdbcType = VARCHAR}
+    </select>
+
+    <update id="updatePasswordByUsername" parameterType="map">
+      UPDATE future_shop_user SET password = #{newPassword, jdbcType=VARCHAR} where username = #{username, jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectQuestionByUsername" parameterType="java.lang.String" resultType="java.lang.String">
+      SELECT question from future_shop_user
+      WHERE username = #{username, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByUsernameAndQuestion" parameterType="map" resultType="java.lang.String">
+      SELECT answer from future_shop_user
+      WHERE username = #{username, jdbcType=VARCHAR} and question = #{question, jdbcType=VARCHAR}
+    </select>
+
+</mapper>

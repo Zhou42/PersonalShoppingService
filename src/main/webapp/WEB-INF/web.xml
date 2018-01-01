@@ -4,4 +4,31 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+      classpath:applicationContext.xml
+    </param-value>
+  </context-param>
+
+
+  <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <!-- 这里就是所有的request 都使用dispatcher servlet响应。而dispatcher servlet在上面定义，由哪个class绑定  -->
+  <!-- 这么定义了之后，任何对于 ip:port 的request 都会被route到对应的annotate了的method上 -->
+  <!-- 比如Get http://localhost:8080/hello/world.do 会把 /hello/world.do 给到 dispatcher -->
+  <servlet-mapping>
+    <servlet-name>dispatcher</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
 </web-app>

@@ -1,2 +1,9 @@
 .idea/
 Futureshop.iml
+src/main/webapp/META-INF
+*.DS_Store
+bin
+target
+.classpath
+.project
+.settings
