@@ -37,7 +37,9 @@ public class UserController {
 
     // 改用REST 风格的API
     // register
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(
+            value = "/register",
+            method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> register(@Valid User user) throws Exception {
         // Need extra check if all needed fields exist
@@ -57,9 +59,14 @@ public class UserController {
     }
 
     // login
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(
+            value = "/login",
+            method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse login(String username, String password, HttpSession session) throws Exception {
+    public ServerResponse login(
+            String username,
+            String password,
+            HttpSession session) throws Exception {
         if (!this.checkExist(username, Const.USERNAME)) {
             return ServerResponse.createBySuccessMessage("User does not exist!");
         }
@@ -73,7 +80,9 @@ public class UserController {
     }
 
     // logout
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @RequestMapping(
+            value = "/logout",
+            method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse logout(HttpSession session) {
         session.removeAttribute(Const.CURRENT_USER);
@@ -81,7 +90,9 @@ public class UserController {
     }
 
     // get user info
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @RequestMapping(
+            value = "/info",
+            method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<User> getUserInfo(HttpSession session) {
         // 无需传入user id, 每个user 只能获得最的info
@@ -94,11 +105,14 @@ public class UserController {
         }
     }
 
-
     // update user info
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(
+            value = "/update",
+            method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<User> update(@Valid User user, HttpSession session) {
+    public ServerResponse<User> update(
+            @Valid User user,
+            HttpSession session) {
         // 无需传入user id, 每个user 只能update这个用户的info
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
         if (currentUser == null) {
@@ -111,9 +125,14 @@ public class UserController {
     }
 
     // reset password after logged in
-    @RequestMapping(value = "/password/reset", method = RequestMethod.PUT)
+    @RequestMapping(
+            value = "/password/reset",
+            method = RequestMethod.PUT)
     @ResponseBody
-    public ServerResponse passwordReset(String oldPassword, String newPassword, HttpSession session) throws Exception {
+    public ServerResponse passwordReset(
+            String oldPassword,
+            String newPassword,
+            HttpSession session) throws Exception {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null) {
             return ServerResponse.createByErrorMessage("User not logged in");
@@ -128,16 +147,23 @@ public class UserController {
     }
 
     // forget and reset password
-    @RequestMapping(value = "/password/forget_reset", method = RequestMethod.PUT)
+    @RequestMapping(
+            value = "/password/forget_reset",
+            method = RequestMethod.PUT)
     @ResponseBody
-    public ServerResponse forgetPasswordAndReset(String username, String newPassword, String token) throws Exception {
+    public ServerResponse forgetPasswordAndReset(
+            String username,
+            String newPassword,
+            String token) throws Exception {
         if (!iUserService.checkExist(username, Const.USERNAME)) {
             return ServerResponse.createByErrorMessage("Username does not exist");
         }
         return iUserService.forgetPasswordAndReset(username, newPassword, token);
     }
 
-    @RequestMapping(value = "/password/question", method = RequestMethod.GET)
+    @RequestMapping(
+            value = "/password/question",
+            method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<String> forgetPasswordAndGetQuestion(String username) {
         if (!iUserService.checkExist(username, Const.USERNAME)) {
@@ -146,9 +172,14 @@ public class UserController {
         return iUserService.getQuestion(username);
     }
 
-    @RequestMapping(value = "/password/answer", method = RequestMethod.POST)
+    @RequestMapping(
+            value = "/password/answer",
+            method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> checkAnswerAndGetToken(String username, String question, String answer) {
+    public ServerResponse<String> checkAnswerAndGetToken(
+            String username,
+            String question,
+            String answer) {
         if (!iUserService.checkExist(username, Const.USERNAME)) {
             return ServerResponse.createByErrorMessage("Username does not exist");
         }

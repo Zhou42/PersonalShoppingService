@@ -29,4 +29,6 @@ public interface IUserService {
     boolean checkAnswer(String username, String question, String answer);
 
     ServerResponse forgetPasswordAndReset(String username, String newPassword, String token) throws Exception;
+
+    ServerResponse checkAdminRole(User user);
 }

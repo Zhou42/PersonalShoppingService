@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by yangzhou on 2017-11-25.
@@ -28,8 +27,8 @@ public class UserServiceImpl implements IUserService {
         UUID uuid = UUID.randomUUID();
         user.setId(uuid.toString());
 
-        user.setCreate_time(new Date());
-        user.setUpdate_time(new Date());
+        user.setCreateTime(new Date());
+        user.setUpdateTime(new Date());
 
         userMapper.insert(user);
 
@@ -102,19 +101,23 @@ public class UserServiceImpl implements IUserService {
         if (Const.USERNAME.equals(type)) {
             // count how many entries that have this username
             int count = userMapper.selectByUsername(value);
-            if (count > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return count > 0;
         } else if (Const.EMAIL.equals(type)) {
             int count = userMapper.selectByEmail(value);
-            if (count > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return count > 0;
         }
         return false;
+    }
+
+    /**
+     * 校验是否是管理员
+     * @param user
+     * @return
+     */
+    public ServerResponse checkAdminRole(User user) {
+        if (user != null && user.getRole() == Const.Role.ROLE_ADMIN) {
+            return ServerResponse.createBySuccess();
+        }
+        return ServerResponse.createByError();
     }
 }

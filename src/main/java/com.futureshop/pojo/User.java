@@ -2,9 +2,7 @@ package com.futureshop.pojo;
 
 import javax.validation.constraints.Email;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.soap.SAAJResult;
 import java.util.Date;
 
 /**
@@ -28,11 +26,11 @@ public class User {
     private String question;
     private String answer;
     private Integer role;
-    private Date create_time;
-    private Date update_time;
+    private Date createTime;
+    private Date updateTime;
 
 
-    public User(String id, String username, String password, String email, String phone, String question, String answer, Integer role, Date create_time, Date update_time) {
+    public User(String id, String username, String password, String email, String phone, String question, String answer, Integer role, Date createTime, Date updateTime) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -41,8 +39,8 @@ public class User {
         this.question = question;
         this.answer = answer;
         this.role = role;
-        this.create_time = create_time;
-        this.update_time = update_time;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
 
@@ -110,16 +108,16 @@ public class User {
         this.role = role;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getUpdate_time() {
-        return update_time;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
     @Override
@@ -133,12 +131,12 @@ public class User {
                 ", question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
                 ", role=" + role +
-                ", create_time=" + create_time +
-                ", update_time=" + update_time +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 
-    public void setUpdate_time(Date update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

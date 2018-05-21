@@ -25,7 +25,7 @@
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
       SELECT
       <include refid="BaseColumnList" />
-      from future_shop_user WHERE id=#{id,jdbcType=VARCHAR}
+      from future_shop_user WHERE id=#{id, jdbcType=VARCHAR}
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
@@ -61,10 +61,10 @@
            <if test="role != null">
                role,
            </if>
-           <if test="create_time != null">
+           <if test="createTime != null">
                create_time,
            </if>
-           <if test="update_time != null">
+           <if test="updateTime != null">
                update_time,
            </if>
        </trim>
@@ -93,11 +93,11 @@
             <if test="role != null">
                 #{role, jdbcType=INTEGER},
             </if>
-            <if test="create_time != null">
-                #{create_time, jdbcType=TIMESTAMP},
+            <if test="createTime != null">
+                #{createTime, jdbcType=TIMESTAMP},
             </if>
-            <if test="update_time != null">
-                #{update_time, jdbcType=TIMESTAMP},
+            <if test="updateTime != null">
+                #{updateTime, jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
@@ -105,7 +105,7 @@
 
     <insert id="insert" parameterType="com.futureshop.pojo.User">
         insert into future_shop_user(id, username, password, email, phone, question, answer, role, create_time, update_time)
-        VALUES (#{id, jdbcType=VARCHAR}, #{username, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR}, #{email, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR}, #{question, jdbcType=VARCHAR}, #{answer, jdbcType=VARCHAR}, #{role, jdbcType=INTEGER}, #{create_time, jdbcType=TIMESTAMP}, #{update_time, jdbcType=TIMESTAMP})
+        VALUES (#{id, jdbcType=VARCHAR}, #{username, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR}, #{email, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR}, #{question, jdbcType=VARCHAR}, #{answer, jdbcType=VARCHAR}, #{role, jdbcType=INTEGER}, #{createTime, jdbcType=TIMESTAMP}, #{updateTime, jdbcType=TIMESTAMP})
     </insert>
 
     <select id="selectByUsername" parameterType="java.lang.String" resultType="int">
@@ -148,11 +148,11 @@
           <if test="role != null" >
               role = #{role,jdbcType=INTEGER},
           </if>
-          <if test="create_time != null" >
-              create_time = #{create_time,jdbcType=TIMESTAMP},
+          <if test="createTime != null" >
+              createTime = #{createTime,jdbcType=TIMESTAMP},
           </if>
-          <if test="update_time != null" >
-              update_time = now(),
+          <if test="updateTime != null" >
+              updateTime = now(),
           </if>
       </set>
       where id = #{id,jdbcType=INTEGER}
